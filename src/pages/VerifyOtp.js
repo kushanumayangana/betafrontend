@@ -25,7 +25,7 @@ const VerifyOtp = ()=>{
         setMessage('');
 
         try{
-            const response = await axios.post('http://localhost:3001/api/user/verify-otp',{
+            await axios.post('http://localhost:3001/api/user/verify-otp',{
                 email,
                 otp
             });

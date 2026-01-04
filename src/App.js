@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard';
 import Help from './pages/Footercomponent/Help';
 import Aboutus from './pages/Footercomponent/Aboutus';
 import Contactus from './pages/Footercomponent/Contactus';
-import Rating from './pages/Footercomponent/Rating';
+import FeedbackPage from './pages/Footercomponent/Feedback/FeedbackPage';
 import UniversityPage from './components/UniversityPage';
 import PropertyDetailPage from './pages/PropertyDetailPage';
 import UniversityPropertyDetailPage from './pages/UniversityPropertyDetailPage';
@@ -46,7 +46,7 @@ function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contactus" element={<Contactus />} />
-          <Route path="/rating" element={<Rating />} />
+          <Route path="/FeedbackPage" element={<FeedbackPage />} />
         </Routes>
         
       </div>

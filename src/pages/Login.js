@@ -6,10 +6,15 @@ function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    
+    if (isLoggingIn) return; // Prevent multiple submissions
+    
+    setIsLoggingIn(true);
 
     try {
       const res = await axios.post('http://localhost:3001/api/user/login', {
@@ -24,12 +29,19 @@ function Login() {
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('token', res.data.token);
 
-        setTimeout(() => {
-          navigate('/home');
-        }, 1000);
+        // Dispatch login success event for Header component (only once)
+        window.dispatchEvent(new Event('login-success'));
+
+        // Force full page reload to update all components
+        window.location.href = '/home';
+
+        // Navigate immediately after setting localStorage
+        //navigate('/home');
       }
     } catch (error) {
       setMessage(error.response?.data?.message || 'Login failed');
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -42,51 +54,51 @@ function Login() {
   }, [message]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-teal-50 to-green-50 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-teal-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-teal-50 to-teal-100 px-4">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-teal-200">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-teal-800 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your account</p>
+          <p className="text-teal-700">Sign in to your account</p>
         </div>
         
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Username or Email</label>
+            <label className="block text-sm font-semibold text-teal-800 mb-2">Username or Email</label>
             <input
               type="text"
               value={emailOrUsername}
               onChange={(e) => setEmailOrUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent transition-all duration-200"
               placeholder="Enter your username or email"
               required
             />
           </div>
           
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+            <label className="block text-sm font-semibold text-teal-800 mb-2">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent transition-all duration-200"
               placeholder="Enter your password"
               required
             />
           </div>
           
           <div className="flex items-center justify-between">
-            <label className="flex items-center text-sm text-gray-600">
-              <input type="checkbox" className="mr-2 text-teal-600 focus:ring-teal-500" />
+            <label className="flex items-center text-sm text-teal-700">
+              <input type="checkbox" className="mr-2 text-teal-700 focus:ring-teal-700" />
               Remember Me
             </label>
-            <Link to="/Forgetpw" className="text-teal-600 text-sm hover:text-teal-700 hover:underline transition-colors">
+            <Link to="/Forgetpw" className="text-teal-700 text-sm hover:text-teal-800 hover:underline transition-colors">
               Forgot Password?
             </Link>
           </div>
           
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-teal-600 to-teal-700 text-white py-3 rounded-lg hover:from-teal-700 hover:to-teal-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="w-full bg-gradient-to-r from-teal-700 to-teal-800 text-white py-3 rounded-lg hover:from-teal-800 hover:to-teal-900 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
           >
             Sign In
           </button>
@@ -94,8 +106,8 @@ function Login() {
           {message && (
             <div className={`text-center p-3 rounded-lg ${
               message.includes('success') || message.includes('Success') 
-                ? 'bg-green-100 text-green-700' 
-                : 'bg-red-100 text-red-700'
+                ? 'bg-green-100 text-green-800' 
+                : 'bg-red-100 text-red-800'
             }`}>
               {message}
             </div>
@@ -103,13 +115,13 @@ function Login() {
         </form>
         
         {/* Register Section */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <p className="text-sm text-center text-gray-600 mb-4">
+        <div className="mt-8 pt-6 border-t border-teal-200">
+          <p className="text-sm text-center text-teal-700 mb-4">
             Don't have an account?
           </p>
           <Link
             to="/signup"
-            className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 block text-center"
+            className="w-full bg-gradient-to-r from-teal-600 to-teal-700 text-white py-3 rounded-lg hover:from-teal-700 hover:to-teal-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] block text-center"
           >
             Create Account
           </Link>

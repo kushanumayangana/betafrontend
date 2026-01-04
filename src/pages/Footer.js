@@ -29,28 +29,43 @@ function Footer() {
             <Link to="/contactus" className="text-gray-600 hover:text-gray-900 transition duration-300">
               Contact Us
             </Link>
-            <Link to="/rating" className="text-gray-600 hover:text-gray-900 transition duration-300">
+            <Link to="/FeedbackPage" className="text-gray-600 hover:text-gray-900 transition duration-300">
               User Feedback
             </Link>
           </div>
 
           {/* Social media icons */}
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-500 hover:text-blue-600 transition duration-300">
+            <button 
+              className="text-gray-500 hover:text-blue-600 transition duration-300"
+              aria-label="Visit our Facebook page"
+            >
               <FaFacebook size={20} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-blue-400 transition duration-300">
+            </button>
+            <button 
+              className="text-gray-500 hover:text-blue-400 transition duration-300"
+              aria-label="Visit our Twitter page"
+            >
               <FaTwitter size={20} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-pink-600 transition duration-300">
+            </button>
+            <button 
+              className="text-gray-500 hover:text-pink-600 transition duration-300"
+              aria-label="Visit our Instagram page"
+            >
               <FaInstagram size={20} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-blue-700 transition duration-300">
+            </button>
+            <button 
+              className="text-gray-500 hover:text-blue-700 transition duration-300"
+              aria-label="Visit our LinkedIn page"
+            >
               <FaLinkedin size={20} />
-            </a>
-            <a href="#" className="text-gray-500 hover:text-red-600 transition duration-300">
+            </button>
+            <button 
+              className="text-gray-500 hover:text-red-600 transition duration-300"
+              aria-label="Visit our YouTube page"
+            >
               <FaYoutube size={20} />
-            </a>
+            </button>
           </div>
         </div>
 
